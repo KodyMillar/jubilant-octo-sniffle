@@ -18,8 +18,9 @@ First make a digital ocean droplet.
 
 To create a new regular user, you will need to use the useradd command like this:
 
-'''
+```
 useradd -ms /bin/bash username
-'''
+```
+
 
 The useradd command in this case creates a new user. The 
