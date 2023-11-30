@@ -22,7 +22,7 @@ useradd -ms /bin/bash <your-user>
 
 Then we will need to allow the user to run administrative tasks. You will need this to be able to run important commands that make modifications to files, users, or groups by using the `sudo` command. This will be needed to install and configure nginx in the next steps.
 
-Right now, if you try running `sudo`, you will see that it doens't work. To give yourself administrative privileges, you must add your user to the sudo group:
+Right now, if you try running `sudo`, you will see that it doesn't work. To give yourself administrative privileges, you must add your user to the sudo group:
 
 ```
 usermod -aG sudo <your-user> 
