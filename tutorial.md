@@ -7,7 +7,6 @@ Prerequisites:
 - A Digitalocean account
 - An ssh key
 
-
 ## Create a new regular user
 
 To create a new regular user, you will need to use the `useradd` command like this:
@@ -20,6 +19,14 @@ useradd -ms /bin/bash <your-user>
 `-m` will create your home directory and will copy shell configuration files into your home directory.  
 `-s /bin/bash` sets the path to the user's login shell to be /bin/bash. Your login shell will run commands everytime you log in to your regular user account. Setting the path to /bin/bash will use Bash as your shell, which creates an easier interactive experience with running commands.
 
+Now we must set your new user's password:
+
+```
+passwd <your-user>
+```
+
+It will prompt you enter your new password. You will notice that the terminal is not displaying what you type. That is actually done on purpose so nobody else can see your password. If you're wondering why they don't use asterisks, it's because other people can see the length of your password with asterisks even though you can't see the actual characters.
+
 Then we will need to allow the user to run administrative tasks. You will need this to be able to run important commands that make modifications to files, users, or groups by using the `sudo` command. This will be needed to install and configure nginx in the next steps.
 
 Right now, if you try running `sudo`, you will see that it doesn't work. To give yourself administrative privileges, you must add your user to the sudo group:
@@ -29,7 +36,7 @@ usermod -aG sudo <your-user>
 ```
 
 `usermod` will modify an existing user's account.  
-`-aG sudo` will append the sudo group to the user's group list.  
+`-aG sudo` will append the sudo group to your user's group list.  
 
 Now your new regular user should be in the sudo group. You can test this out by logging into your new user account:
 
@@ -40,8 +47,6 @@ su -l <your-user>
 You should now be logged in to your new user account. You should now see your prompt change from `root@Debian-12:~#` to something like `your-user@Debian-12:~$`.
 
 Type in the command `groups`. This displays the groups of the current user. You should see the sudo group listed in the terminal as one of the groups.
-
-To create a password...
 
 
 ## Login to user through ssh
