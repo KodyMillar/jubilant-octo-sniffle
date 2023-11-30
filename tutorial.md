@@ -25,7 +25,7 @@ Now we must set your new user's password:
 passwd <your-user>
 ```
 
-It will prompt you to enter your new password. You will notice that the terminal is not displaying what you type. That is actually done on purpose so nobody else can see your password. If you're wondering why they don't use asterisks, it's because other people can see the length of your password with asterisks even though they can't see the actual characters.
+It will prompt you to enter your new password. You may be confused to see that the terminal is not displaying what you type. Don't worry, that's actually done on purpose so nobody else can see your password. If you're wondering why they don't use asterisks, it's because other people can see the length of your password with asterisks even though they can't see the actual characters.
 
 Then we will need to allow the user to run administrative tasks. You will need this to be able to run important commands that make modifications to files, users, or groups by using the `sudo` command. This will be needed to install and configure nginx in the next steps.
 
