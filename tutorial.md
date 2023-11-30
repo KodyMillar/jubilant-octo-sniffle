@@ -4,8 +4,21 @@
 This tutorial walks users through how to configure nginx to serve a website in a Debian Server
 
 Prerequisites:
-- A Digitalocean account
-- An ssh key
+- A Digitalocean Debian 12 droplet
+- An ssh key to connect to that droplet
+
+## Connect to the Debian 12 Server
+
+First, you must connect to your Debian 12 server using your ssh key. It should look something like this:
+
+```
+ssh -i C:\Users\your-user\.ssh\do-key root@165.232.135.242
+```
+
+`-i` will specifiy the file to read as the private key.
+
+The ip address in the example should be replaced with your droplet's public ip address. You should now be logged into your droplet server as the root user.
+
 
 ## Create a new regular user
 
