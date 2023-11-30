@@ -53,8 +53,8 @@ Type in the command `groups`. This displays the groups of the current user. You 
 
 In this step, we will configure the sshd_config file so that you can connect to your ssh server as a regular user instead of as root. This will prevent you from going into root first and having to switch to your user. More specifically, it is better to use a regular user account instead of the root account. This is because:
 
-- It is easier for a hacker to hack the root account because they already know the username (root) 
-- It gives everybody accountability as users will be able to know who did what
+- It is easier for a hacker to hack the root account because they already know the username (root). 
+- It gives everybody accountability as users will be able to know who did what.
 
 First, we must copy the .ssh directory from the root home directory to your user's home directory. This directory includes the private and public ssh keys. Having this directory in your user's home directory will allow you to access the ssh server through your regular user:
 
@@ -64,7 +64,7 @@ sudo cp -r /root/.ssh/ /home/your-user
 
 `cp` copies a file or directory  
 `-r` is recursive, meaning that if a directory is copied, all the files inside the directory and inside its children directory will be copied as well.  
-`/root/.ssh/` is the directory you are copying. Make sure to put this before the destination.
+`/root/.ssh/` is the directory you are copying. Make sure to put this before the destination.  
 `/home/your-user` this is the destination directory that you are copying the .ssh directory to.
 
 To put this into full effect, go into your home directory with `cd /home/your-user` and change the owner of the .ssh directory and its files to your user and your user group:
@@ -73,8 +73,8 @@ To put this into full effect, go into your home directory with `cd /home/your-us
 sudo chown -R your-user: .ssh
 ```
 
-`chown` will change the owner of the directory
-`-R` will recursively change the owner, meaning the owners of the directory and all of its files inside will be changed.
+`chown` will change the owner of the directory  
+`-R` will recursively change the owner, meaning the owners of the directory and all of its files inside will be changed.  
 `your-user:` will change the owner of the directory to be both your user and your user group. Having the colon `:` after your user name will change the group owner to the group of the same name as the user name provide. When you created a user, a group of the same name was automatically created.
 
 Now disconnect from your remote server. Do this by typing `exit` to log out of your regular user account and `exit` again to disconnect from the server.
