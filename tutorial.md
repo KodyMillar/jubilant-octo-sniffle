@@ -51,10 +51,10 @@ Type in the command `groups`. This displays the groups of the current user. You 
 
 ## Login to user through ssh
 
-In this step, we will configure the sshd_config file so that you can connect to your ssh server as a regular user instead of as root. This will prevent you from going into root first and having to switch to your user. More specifically, it is better to use a regular user account instead of a root account. This is because:
+In this step, we will configure the sshd_config file so that you can connect to your ssh server as a regular user instead of as root. This will prevent you from going into root first and having to switch to your user. More specifically, it is better to use a regular user account instead of the root account. This is because:
 
-- One reason **
-- Two reason **
+- It is easier for a hacker to hack the root account because they already know the username (root) 
+- It gives everybody accountability as users will be able to know who did what
 
 First, we must copy the .ssh directory from the root home directory to your user's home directory. This directory includes the private and public ssh keys. Having this directory in your user's home directory will allow you to access the ssh server through your regular user:
 
