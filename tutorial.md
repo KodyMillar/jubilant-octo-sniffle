@@ -185,14 +185,13 @@ server {
 
 You can notice that the path to our my-site directory is listed. This is used to specify the website documents that the server will serve. 
 
-To enable the `my-site.conf` server block, we will create a symbolic link in the `/etc/Nginx/sites-enabled` directory:
+To enable the `my-site.conf` server block, we will create a symbolic link in the `/etc/Nginx/sites-enabled` directory to enable that site:
 
 ```
 sudo ln -s /etc/nginx/sites-available/my-site.conf /etc/nginx/sites-enabled/my-site.conf@
 ```
 
-The reason we are making a symbolic link in the sites-enabled directory instead of simply putting the my-site.conf file in the directory is so that you only need to edit one of the files in one directory. 
-This will prevent any files becoming overwritten or lost.
+Now that the symbolic link is in the sites-enabled directory, the site has been enabled. The reason we are making a symbolic link in the sites-enabled directory instead of simply putting the my-site.conf file in the directory is because editing a single file in sites-enabled could break the server. Having two different configuration files will allow you to try writing new configurations and features in the symlink in sites-enabled without breaking the server. They will also allow you to have two servers running on one physical server.
 
 We can now test our Nginx configuration by entering the following command:
 
