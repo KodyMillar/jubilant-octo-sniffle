@@ -1,7 +1,6 @@
 # Nginx Tutorial
-### Kody Millar
 
-This tutorial walks users through how to configure nginx to serve a website in a Debian Server
+This tutorial walks users through how to configure nginx to serve a website in a Debian Server.
 
 Prerequisites:
 - A Digitalocean Debian 12 droplet
