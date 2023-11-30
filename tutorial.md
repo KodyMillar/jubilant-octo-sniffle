@@ -208,6 +208,9 @@ To enable our sample website, we will create a symbolic link in the `/etc/nginx/
 sudo ln -s /etc/nginx/sites-available/my-site.conf /etc/nginx/sites-enabled/my-site.conf@
 ```
 
+`ln` creates a link.  
+`-s` will specify the link type as a symbolic link.  
+
 Now that the symbolic link is in the sites-enabled directory, the site has been enabled. The reason we are making a symbolic link in the sites-enabled directory instead of simply putting the my-site.conf file in the directory is because editing a single file in sites-enabled could break the server. Having two different configuration files will allow you to try writing new configurations and features in the symlink in sites-enabled without breaking the server. They will also allow you to have two servers running on one physical server.
 
 We can now test our Nginx configuration by entering the following command:
