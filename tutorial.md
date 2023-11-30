@@ -62,7 +62,7 @@ First, we must copy the .ssh directory from the root home directory to your user
 sudo cp -r /root/.ssh/ /home/your-user
 ```
 
-`cp` copies a file or directory  
+`cp` copies a file or directory.  
 `-r` is recursive, meaning that if a directory is copied, all the files inside the directory and inside its children directory will be copied as well.  
 `/root/.ssh/` is the directory you are copying. Make sure to put this before the destination.  
 `/home/your-user` this is the destination directory that you are copying the .ssh directory to.
@@ -73,16 +73,16 @@ To put this into full effect, go into your home directory with `cd /home/your-us
 sudo chown -R your-user: .ssh
 ```
 
-`chown` will change the owner of the directory  
+`chown` will change the owner of the directory.  
 `-R` will recursively change the owner, meaning the owners of the directory and all of its files inside will be changed.  
-`your-user:` will change the owner of the directory to be both your user and your user group. Having the colon `:` after your user name will change the group owner to the group of the same name as the user name provide. When you created a user, a group of the same name was automatically created.
+`your-user:` will change the owner of the directory to be both your user and your user group. Having the colon `:` after your user name will change the group owner to the group of the same name as the user name provided. When you created a user, a group of the same name was automatically created as your user group.
 
 Now disconnect from your remote server. Do this by typing `exit` to log out of your regular user account and `exit` again to disconnect from the server.
 
 To test if you can connect to the server through your regular user, replace `root` with your user name:
 
 ```
-ssh -i C:\Users\kodym\.ssh\do-key your-user@143.198.69.53
+ssh -i C:\path\to\your\key your-user@server-ip-address
 ```
 
 You should now be connected to your server as your regular user and not the root user.
@@ -95,9 +95,9 @@ First, open the sshd_config file in vim:
 sudo vim /etc/ssh/sshd_config
 ```
 
-We use `sudo` for this command because the file contains important settings for ssh including the location of host key files.
+We use `sudo` for this command because we will modify the file and change ssh settings.
 
-Now search for the `PermitRootLogin yes` line. Search for it faster by using a slash followed by the search pattern: `/PermitRootLogin`. Change the "yes" to "no". Save and quit the file using `:wq` and restart the ssh service:
+Now search for the `PermitRootLogin yes` line. Search for it faster by using a slash followed by the search pattern: `/PermitRootLogin`. Press `i` on your keyboard to go into insert mode. Change the "yes" to "no". Press the `Esc` key to exit insert mode. save and quit the file using `:wq` and restart the ssh service:
 
 ```
 sudo systemctl restart ssh.service
@@ -116,18 +116,24 @@ sudo apt install nginx
 
 `apt` is a package manager that can install, update, upgrade, and delete packages and dependencies.
 
-We must then check if the Nginx service is enabled and activated. We can check the status of the service by entering:
+We must now check if the Nginx service is enabled and activated. We can check the status of the service by entering:
 
 ```
 systemctl status nginx.service
 ```
 
+If it is disabled, you can enable the service by typing:
+
+```
+sudo systemctl enable nginx.service
+```
+
 
 ## Configure Nginx to Serve a Sample Website
 
-Now we are going to configure Nginx so that it will serve a sample website of our making. First, go into the /var/www directory using the `cd` command. The /var/www directory is one the default directories that hold the documents that are served by Nginx.
+Now we are going to configure Nginx so that it will serve a sample website of our making. First, go into the `/var/www` directory using the `cd` command. The `/var/www` directory is one of the default directories that hold the documents that are served by Nginx.
 
-Once you are inside the /var/www directory, create a new directory called my-site:
+Once you are inside the `/var/www` directory, create a new directory called my-site:
 
 ```
 sudo mkdir my-site
@@ -167,7 +173,7 @@ This file is going to be the sample website that will be served by Nginx. Once y
 </html>
 ```
 
-Make sure you save your file before exiting vim. Next, we are going to add a service block file. This will be used to tell Nginx how it should handle traffic for our sample website domain. We will create this file in the /etc/nginx/sites-available directory. Go into this directory and create a new file called `my-site.conf`. Open this new file in vim and enter the following server block configuration into the file:
+Make sure you save your file before exiting vim. Next, we are going to add a service block file. This will be used to tell Nginx how it should handle traffic for our sample website domain. We will create this file in the `/etc/nginx/sites-available` directory. Go into this directory and create a new file called `my-site.conf` using `sudo touch`. Open this new file in vim and enter the following server block configuration into the file:
 
 ```
 server {
@@ -188,9 +194,15 @@ server {
 }
 ```
 
-You can notice that the path to our my-site directory is listed. This is used to specify the website documents that the server will serve. 
+You can notice that the path to our `my-site` directory is listed. This is used to specify the website documents that the server will serve. `listen 80 default_server` tells the server to listen on port 80 with ipv4. `listen [::]:80 default_server` is the same, but with ipv6.
 
-To enable the `my-site.conf` server block, we will create a symbolic link in the `/etc/Nginx/sites-enabled` directory to enable that site:
+Before we can enable the website, we must first disable the default website. In the `/etc/nginx/sites-enabled` directory, there is a symbolic link that is currently pointing to a file called `default` in the `/etc/nginx/sites-available` directory. To disable it, simply remove the symbolic link:
+
+```
+sudo unlink /etc/nginx/sites-enabled/default
+```
+
+To enable our sample website, we will create a symbolic link in the `/etc/nginx/sites-enabled` directory that points to the `my-site.conf` server block file:
 
 ```
 sudo ln -s /etc/nginx/sites-available/my-site.conf /etc/nginx/sites-enabled/my-site.conf@
@@ -216,7 +228,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 Lastly, restart the service so that the changes will be updated:
 
 ```
-sudo sytemctl restart nginx.service
+sudo systemctl restart nginx.service
 ```
 
 Now we are ready to run our sample website! In order to run it, use your server's public ip address. Using the `curl` command will transfer the sample website data from the server:
